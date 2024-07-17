@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Example1</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+uniform mat4 modelViewMatrix;
+uniform float pointSize;
+
+void main() {
+    gl_Position = modelViewMatrix * vPosition;
+    gl_PointSize = 15.0;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+void main() {
+    gl_FragColor = vec4( 1.0, 0.0, 1.0, 1.0 );
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="name-initial-with-z-axis.js"></script>
+</head>
+
+<body>
+<button id = "STOP">stop button</button>
+<style>
+    #STOP {
+        position: absolute;
+        top: 0;
+        left: 1%;
+    }
+</style>
+
+<button id = "X-AXIS">x-axis button</button>
+<style>
+    #X-AXIS {
+        position: absolute;
+        top: 0;
+        left: 21%;
+    }
+</style>
+
+<button id = "Y-AXIS">y-axis button</button>
+<style>
+    #Y-AXIS {
+        position: absolute;
+        top: 0;
+        left: 26%;
+    }
+</style>
+
+<button id = "Z-AXIS">z-axis button</button>
+<style>
+    #Z-AXIS {
+        position: absolute;
+        top: 0;
+        left: 31%;
+    }
+</style>
+
+<button id = "TRANSLATE_X">translate x button</button>
+<style>
+    #TRANSLATE_X {
+        position: absolute;
+        top: 0;
+        left: 6%;
+    }
+</style>
+
+<button id = "TRANSLATE_Y">translate y button</button>
+<style>
+    #TRANSLATE_Y {
+        position: absolute;
+        top: 0;
+        left: 11%;
+    }
+</style>
+
+<button id = "TRANSLATE_Z">translate z button</button>
+<style>
+    #TRANSLATE_Z {
+        position: absolute;
+        top: 0;
+        left: 16%;
+    }
+</style>
+
+<button id = "TRANSLATE_-X">translate -x button</button>
+<style>
+    #TRANSLATE_-X {
+        position: absolute;
+        top: 2%;
+        left: 6%;
+    }
+</style>
+
+<button id = "TRANSLATE_-Y">translate -y button</button>
+<style>
+    #TRANSLATE_-Y {
+        position: absolute;
+        top: 2%;
+        left: 11%;
+    }
+</style>
+
+<button id = "TRANSLATE_-Z">translate -z button</button>
+<style>
+    #TRANSLATE_-Z {
+        position: absolute;
+        top: 2%;
+        left: 16%;
+    }
+</style>
+
+<button id = "RESET">reset button</button>
+<style>
+    #RESET {
+        position: absolute;
+        top: 2%;
+        left: 1%;
+    }
+</style>
+
+<button id = "SCALE_x_plus">scale x plus button</button>
+<style>
+    #SCALE_x_plus {
+        position: absolute;
+        top: 4%;
+        left: 6%;
+    }
+</style>
+
+<button id = "SCALE_x_minus">scale x minus button</button>
+<style>
+    #SCALE_x_minus {
+        position: absolute;
+        top: 6%;
+        left: 6%;
+    }
+</style>
+
+<button id = "SCALE_y_plus">scale y plus button</button>
+<style>
+    #SCALE_y_plus {
+        position: absolute;
+        top: 4%;
+        left: 11%;
+    }
+</style>
+
+<button id = "SCALE_y_minus">scale y minus button</button>
+<style>
+    #SCALE_y_minus {
+        position: absolute;
+        top: 6%;
+        left: 11%;
+    }
+</style>
+
+<button id = "SCALE_z_plus">scale z plus button</button>
+<style>
+    #SCALE_z_plus {
+        position: absolute;
+        top: 4%;
+        left: 16%;
+    }
+</style>
+
+<button id = "SCALE_z_minus">scale z minus button</button>
+<style>
+    #SCALE_z_minus {
+        position: absolute;
+        top: 6%;
+        left: 16%;
+    }
+</style>
+
+<button id = "camera_x_change">eye x change button</button>
+<style>
+    #camera_x_change {
+        position: absolute;
+        top: 2%;
+        left: 21%;
+    }
+</style>
+
+<button id = "camera_y_change">eye y change button</button>
+<style>
+    #camera_y_change {
+        position: absolute;
+        top: 2%;
+        left: 26%;
+    }
+</style>
+
+<button id = "camera_z_change">eye z change button</button>
+<style>
+    #camera_z_change {
+        position: absolute;
+        top: 2%;
+        left: 31%;
+    }
+</style>
+
+<button id = "camera_-x_change">eye -x change button</button>
+<style>
+    #camera_-x_change {
+        position: absolute;
+        top: 4%;
+        left: 21%;
+    }
+</style>
+
+<button id = "camera_-y_change">eye -y change button</button>
+<style>
+    #camera_-y_change {
+        position: absolute;
+        top: 4%;
+        left: 26%;
+    }
+</style>
+
+<button id = "camera_-z_change">eye -z change button</button>
+<style>
+    #camera_-z_change {
+        position: absolute;
+        top: 4%;
+        left: 31%;
+    }
+</style>
+
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

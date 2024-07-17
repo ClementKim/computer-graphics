@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Example1</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+attribute vec3 vNormal;
+
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform vec4 lightPosition;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform float materialShininess;
+
+varying vec4 fColor;
+
+void main() {
+    vec3 pos = -(modelViewMatrix * vPosition).xyz;
+
+    vec3 light = lightPosition.xyz;
+    vec3 L = normalize(light - pos);
+    vec3 E = normalize(-pos);
+    vec3 H = normalize(L + E);
+
+    vec4 NN = vec4(vNormal, 0);
+
+    vec3 N = normalize((modelViewMatrix * NN).xyz);
+    vec4 ambient = ambientProduct;
+
+    float d_val = max(dot(L, N), 0.0);
+    vec4 diffuse = d_val * diffuseProduct;
+
+    float s_val = pow(max(dot(N, H), 0.0), materialShininess);
+    vec4 specular = s_val * specularProduct;
+
+    if (dot(L, N) < 0.0) {
+        specular = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+    fColor = ambient + diffuse + specular;
+
+    fColor.a = 1.0;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision highp float;
+varying vec4 fColor;
+
+void main() {
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="201922027_김준성.js"></script>
+</head>
+
+<body>
+<button id = "STOP">stop button</button>
+<style>
+    #STOP {
+        position: absolute;
+        top: 27%;
+        right: 44.1%;
+    }
+</style>
+
+<button id = "RESET">reset button</button>
+<style>
+    #RESET {
+        position: absolute;
+        top: 27%;
+        right: 36.2%;
+    }
+</style>
+
+<button id = "front_right_view">front_right_view</button>
+<style>
+    #front_right_view {
+        position: absolute;
+        top: 6%;
+        right: 42.6%;
+    }
+</style>
+
+<button id = "front_left_view">front_left_view</button>
+<style>
+    #front_left_view {
+        position: absolute;
+        top: 6%;
+        right: 35.5%;
+    }
+</style>
+
+<button id = "front_up_view">front_up_view</button>
+<style>
+    #front_up_view {
+        position: absolute;
+        top: 6%;
+        right: 27.5%;
+    }
+</style>
+
+<button id = "front_down_view">front_down_view</button>
+<style>
+    #front_down_view {
+        position: absolute;
+        top: 6%;
+        right: 19.6%;
+    }
+</style>
+
+<button id = "rear_up_view">rear_up_view</button>
+<style>
+    #rear_up_view {
+        position: absolute;
+        top: 18%;
+        right: 27.4%;
+    }
+</style>
+
+<button id = "rear_down_view">rear_down_view</button>
+<style>
+    #rear_down_view {
+        position: absolute;
+        top: 18%;
+        right: 19.7%;
+    }
+</style>
+
+<button id = "rear_right_view">rear_right_view</button>
+<style>
+    #rear_right_view {
+        position: absolute;
+        top: 18%;
+        right: 42.9%;
+    }
+</style>
+
+<button id = "rear_left_view">rear_left_view</button>
+<style>
+    #rear_left_view {
+        position: absolute;
+        top: 18%;
+        right: 35.6%;
+    }
+</style>
+
+<button id = "front_right_up_view">front_right_up_view</button>
+<style>
+    #front_right_up_view {
+        position: absolute;
+        top: 9%;
+        right: 41.5%;
+    }
+</style>
+
+<button id = "front_left_up_view">front_left_up_view</button>
+<style>
+    #front_left_up_view {
+        position: absolute;
+        top: 9%;
+        right: 26.2%;
+    }
+</style>
+
+<button id = "rear_right_up_view">rear_right_up_view</button>
+<style>
+    #rear_right_up_view {
+        position: absolute;
+        top: 21%;
+        right: 41.8%;
+    }
+</style>
+
+<button id = "rear_left_up_view">rear_left_up_view</button>
+<style>
+    #rear_left_up_view {
+        position: absolute;
+        top: 21%;
+        right: 26.2%;
+    }
+</style>
+
+<button id = "front_right_down_view">front_right_down_view</button>
+<style>
+    #front_right_down_view {
+        position: absolute;
+        top: 9%;
+        right: 33.2%;
+    }
+</style>
+
+<button id = "front_left_down_view">front_left_down_view</button>
+<style>
+    #front_left_down_view {
+        position: absolute;
+        top: 9%;
+        right: 18.4%;
+    }
+</style>
+
+<button id = "rear_right_down_view">rear_right_down_view</button>
+<style>
+    #rear_right_down_view {
+        position: absolute;
+        top: 21%;
+        right: 33.2%;
+    }
+</style>
+
+<button id = "rear_left_down_view">rear_left_down_view</button>
+<style>
+    #rear_left_down_view {
+        position: absolute;
+        top: 21%;
+        right: 18.4%;
+    }
+</style>
+
+<button id = "front_view">front_view</button>
+<style>
+    #front_view {
+        position: absolute;
+        top: 3%;
+        right: 44.2%;
+    }
+</style>
+
+<button id = "rear_view">rear_view</button>
+<style>
+    #rear_view {
+        position: absolute;
+        top: 15%;
+        right: 44.5%;
+    }
+</style>
+
+</style>
+
+<button id = "random_light">random light</button>
+<style>
+    #random_light {
+        position: absolute;
+        top: 30%;
+        right: 43.7%;
+    }
+</style>
+
+<button id = "rotation">rotation</button>
+<style>
+    #rotation {
+        position: absolute;
+        top: 30%;
+        right: 37.5%;
+    }
+</style>
+
+<canvas id="gl-canvas" width="1024" height="1024">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
